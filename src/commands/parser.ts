@@ -119,9 +119,23 @@ export async function parser(options: IOptions) {
           termReference.filepath,
           options
         );
-        const component =
-          `<Term popup="${termReference.hoverText}" ` +
-          `reference="${relativePath}">${text}</Term>`;
+        const attributes = [
+          `popup="${termReference.hoverText}"`,
+          `reference="${relativePath}"`
+        ];
+        if (options.termWrapperClass) {
+          attributes.push(`wrapperClass="${options.termWrapperClass}"`);
+        }
+        if (options.termLinkClass) {
+          attributes.push(`linkClass="${options.termLinkClass}"`);
+        }
+        if (options.termTextClass) {
+          attributes.push(`textClass="${options.termTextClass}"`);
+        }
+        if (options.termPopupClass) {
+          attributes.push(`popupClass="${options.termPopupClass}"`);
+        }
+        const component = `<Term ${attributes.join(' ')}>${text}</Term>`;
         content = content.replace(match, component);
       }
       // since we are inside the if function
@@ -129,7 +143,7 @@ export async function parser(options: IOptions) {
       // replaced at least 1 term, so we can
       // now add the import statement after
       // the headers of the file
-      content = headers + addJSImportStatement(content);
+      content = headers + addJSImportStatement(content, options);
       // now the new content can be replaced
       // in the opened file
       // check: dry-run

@@ -5,7 +5,7 @@ const {
   filterTypeTerms,
   getFiles,
   preloadTerms
-} = require('../src/lib.js');
+} = require('../lib/lib.js');
 
 const options = {
   termsUrl: '/docs/terms',
@@ -23,7 +23,7 @@ describe('get relative path', () => {
 
 describe('add import statement', () => {
   const content = '# Hospitality';
-  var newContent = addJSImportStatement(content);
+  var newContent = addJSImportStatement(content, { termComponent: 'tooltip' });
   it('gets the updated content with the import statement', () => {
     expect(newContent).toBe(
       '\n\nimport Term from "@lunaticmuch/docusaurus-terminology/components/tooltip.js";\n' +
@@ -34,11 +34,22 @@ describe('add import statement', () => {
 
 describe('add import statement in empty file', () => {
   const content = '';
-  var newContent = addJSImportStatement(content);
+  var newContent = addJSImportStatement(content, { termComponent: 'tooltip' });
   it('gets the updated content with the import statement', () => {
     expect(newContent).toBe(
       content +
         '\n\nimport Term from "@lunaticmuch/docusaurus-terminology/components/tooltip.js";\n'
+    );
+  });
+});
+
+describe('add import statement for popover', () => {
+  const content = '# Hospitality';
+  var newContent = addJSImportStatement(content, { termComponent: 'popover' });
+  it('uses the popover component path', () => {
+    expect(newContent).toBe(
+      '\n\nimport Term from "@lunaticmuch/docusaurus-terminology/components/popover.js";\n' +
+        content
     );
   });
 });
