@@ -1,10 +1,6 @@
-export function validateOptions(opts: {
-  docsDir: any;
-  termsDir: any;
-  glossaryFilepath: any;
-  noParseFiles: any;
-  noGlossaryFiles: any;
-}) {
+import type { IOptions } from './types.js';
+
+export function validateOptions(opts: IOptions) {
   // docsDir
   validateType('docsDir', opts.docsDir, 'string');
   validateNotEmpty('docsDir', opts.docsDir);
@@ -31,6 +27,20 @@ export function validateOptions(opts: {
   for (const file of opts.noGlossaryFiles) {
     checkRelativePath(`noGlossaryFiles item ${file}`, file);
   }
+
+  // term component
+  validateType('termComponent', opts.termComponent, 'string');
+  if (!['tooltip', 'popover'].includes(opts.termComponent)) {
+    console.log(
+      `"termComponent" should be either "tooltip" or "popover".\nExiting...`
+    );
+    process.exit(1);
+  }
+
+  validateOptionalString('termWrapperClass', opts.termWrapperClass);
+  validateOptionalString('termLinkClass', opts.termLinkClass);
+  validateOptionalString('termTextClass', opts.termTextClass);
+  validateOptionalString('termPopupClass', opts.termPopupClass);
 }
 
 function validateNotEmpty(key: string, value: string | any[]) {
@@ -53,6 +63,13 @@ function validateType(key: string, value: any, type: string) {
       console.log(`"${key}" should be a ${type}, not ${curType}.\nExiting...`);
       process.exit(1);
     }
+  }
+}
+
+function validateOptionalString(key: string, value: unknown) {
+  if (typeof value !== 'string') {
+    console.log(`"${key}" should be a string.\nExiting...`);
+    process.exit(1);
   }
 }
 

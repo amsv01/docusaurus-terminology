@@ -221,14 +221,19 @@ name in `docusaurus.config.js` file of your repository:
 You can also use some of the following options specified by wrapping the name 
 and an options object in an array inside your configuration:
 
-|      Option          |                                                Description                                                |  Type  |    Default value   |
-|:--------------------:|:---------------------------------------------------------------------------------------------------------:|:------:|:------------------:|
-|     termsDir         |                                the directory used to collect the term files                               | string |    ./docs/terms    |
-|  glossaryFilepath    |                            specify the directory and name of the glossary file                            | string | ./docs/glossary.md |
+|      Option          | Description                                                                                             |  Type  |    Default value   |
+|:--------------------:|:--------------------------------------------------------------------------------------------------------|--:|:------:|:------------------:|
+|     termsDir         | the directory used to collect the term files                                                            | string |    ./docs/terms    |
+|  glossaryFilepath    | specify the directory and name of the glossary file                                                     | string | ./docs/glossary.md |
 |  patternSeparator    | the special character used to separate `term_text` <br>and `term_name` in the replace pattern for parsing | string |         \|         |
-|   noParseFiles       |                             array of files to be excluded from search/replace                             |  array |         []         |
-|  noGlossaryFiles     |                         array of term files to not be listed on the glossary page                         |  array |         []         |
-| glossaryTermPatterns |          array of `type` values, to choose category/ies of terms to be included in the glossary           |  array |         []         |
+|   noParseFiles       | array of files to be excluded from search/replace                                                       |  array |         []         |
+|  noGlossaryFiles     | array of term files to not be listed on the glossary page                                               |  array |         []         |
+| glossaryTermPatterns | array of `type` values, to choose category/ies of terms to be included in the glossary                  |  array |         []         |
+|   termComponent      | choose whether the term uses a Material UI Tooltip (default) or Popover                                 | string (`'tooltip'` or `'popover'`) |      tooltip       |
+| termWrapperClass     | class applied to the wrapping `<span>` rendered by the `Term` component                                  | string |        ''          |
+|   termLinkClass      | class applied to the `<Link>` rendered by the `Term` component                                           | string |        ''          |
+|  termTextClass       | class applied to the inner `<span>` that wraps the term text                                             | string |        ''          |
+|  termPopupClass      | class applied to the popup element (tooltip or popover)                                                 | string |        ''          |
 
 > `type`: optional attribute in the header of the Markdown files
 
@@ -252,11 +257,26 @@ plugins: [
 ]
 ```
 
+### Choosing the popup component
+
+The default experience uses a Material UI Tooltip, but you can switch to
+the Popover implementation when you need to display longer descriptions.
+Set `termComponent: 'popover'` in the plugin options to import and use the
+popover-based implementation automatically.
+
+### Styling the generated `Term` component
+
+The parser now emits additional attributes on the generated `<Term />` tag
+so you can control its styling without editing the component. Configure the
+class names via the `termWrapperClass`, `termLinkClass`, `termTextClass`, and
+`termPopupClass` options; only the values you provide will be included in the
+generated tags.
+
 ## To Do
 
-- [ ] Include the option to select a [Popover](https://mui.com/material-ui/react-popover/) 
+- [x] Include the option to select a [Popover](https://mui.com/material-ui/react-popover/) 
 as alternative to Tooltip for longer descriptions
-- [ ] Include addtional options in the `Term` tag to control classes
+- [x] Include addtional options in the `Term` tag to control classes
 
 ## Original Author
 
