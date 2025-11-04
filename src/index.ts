@@ -16,7 +16,12 @@ const DEFAULT_OPTIONS: IOptions = {
   noGlossaryFiles: [],
   glossaryTermPatterns: [],
   dryRun: false,
-  debug: false
+  debug: false,
+  termComponent: 'tooltip',
+  termWrapperClass: '',
+  termLinkClass: '',
+  termTextClass: '',
+  termPopupClass: ''
 };
 
 module.exports = function (context: LoadContext, opts: IOptions): Plugin {

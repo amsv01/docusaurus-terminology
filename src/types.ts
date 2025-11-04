@@ -9,6 +9,11 @@ export interface IOptions {
   dryRun: boolean;
   debug: boolean;
   patternSeparator: string;
+  termComponent: 'tooltip' | 'popover';
+  termWrapperClass: string;
+  termLinkClass: string;
+  termTextClass: string;
+  termPopupClass: string;
 }
 
 export interface ITerm {

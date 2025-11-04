@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./lib",
-    "test": "jest",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "lint": "eslint src/**/*.ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prepack": "npm run build"

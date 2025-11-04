@@ -11,13 +11,21 @@ const textStyle = {
 
 export default function Term(props) {
   return (
-    <Tooltip 
-      title={<span style={popupStyle}>{props.popup}</span>} 
-      arrow={true}
-    >
-      <Link to={props.reference}>
-        <span style={textStyle}>{props.children}</span>
-      </Link>
-    </Tooltip>
+    <span className={props.wrapperClass}>
+      <Tooltip
+        title={
+          <span style={popupStyle} className={props.popupClass}>
+            {props.popup}
+          </span>
+        }
+        arrow={true}
+      >
+        <Link to={props.reference} className={props.linkClass}>
+          <span style={textStyle} className={props.textClass}>
+            {props.children}
+          </span>
+        </Link>
+      </Tooltip>
+    </span>
   );
 }

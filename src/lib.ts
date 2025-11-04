@@ -118,10 +118,15 @@ export function getHeaders(content: string): string {
   return content.slice(0, index);
 }
 
-export function addJSImportStatement(content: string) {
-  const importStatement =
-    `\n\nimport Term ` +
-    `from "@lunaticmuch/docusaurus-terminology/components/tooltip.js";\n`;
+export function addJSImportStatement(
+  content: string,
+  options?: Pick<IOptions, 'termComponent'>
+) {
+  const componentPath =
+    options?.termComponent === 'popover'
+      ? '@lunaticmuch/docusaurus-terminology/components/popover.js'
+      : '@lunaticmuch/docusaurus-terminology/components/tooltip.js';
+  const importStatement = `\n\nimport Term from "${componentPath}";\n`;
   return importStatement + content;
 }
 
